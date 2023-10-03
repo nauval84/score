@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% for x in students %}
+        <h1> Nama:{{x.name}}-Nilai:{{x.score}}</h1><br>
+        {% if x.score > 90 %}
+            -congratulations</p>
+        {% elif x.score >= 76 %}
+            -Very Good</p>
+        {% else %}
+            -Maaf anda belum lulus</p>
+        {% endif %}
+    {% endfor %}
+</body>
+</html>
