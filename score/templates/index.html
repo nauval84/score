@@ -26,7 +26,8 @@
             <thead>
                 <tr>
                     <th>Name</th>
-                    <th>score</th>
+                    <th>Score</th>
+                    <th>Edit</th>
                 </tr>
             </thead>
 
@@ -35,6 +36,9 @@
                 <tr>
                     <td>{{x.name}}</td>
                     <td>{{x.score}}</td>
+                    <td>
+                        <a href="/edit/{{x['id'] }}">Edit</a>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>

@@ -37,3 +37,17 @@ def score():
 
         # salin isi variabel birtdays ke birhdays, lalu kirim ke index.html
         return render_template("index.html", students = score) 
+
+
+@app.route("/edit/<id>", methods=["GET", "POST"])
+def edit_data(id):
+    if request.method == "GET":
+        edt = db.execute("SELECT * FROM score WHERE id = ?", id)[0]
+        print(edt)
+        return render_template("edit.html", edt = edt)
+
+    elif request.method == "POST":
+        edt_name = request.form.get("name")
+        edt_score = request.form.get("score")
+        db.execute('UPDATE score set name = ?, score = ? where id = ?', edt_name, edt_score, id)
+        return redirect("/") 
