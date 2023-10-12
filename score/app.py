@@ -1,16 +1,39 @@
-from flask import Flask, render_template
+import os #import os untuk mengakses sistem database
 
-app = Flask(__name__)
+from cs50 import SQL #import SQL untuk menggunakan bahasa SQL dalam phyton
 
-@app.route('/')
+from flask import Flask, flash, jsonify, redirect, render_template, request, session #import tools untuk website
 
+app = Flask(__name__) #mengatur nama aplikasi
+
+db = SQL ("sqlite:///score.db")
+
+
+
+
+@app.route("/", methods=["GET", "POST"])
+#ketika route "/" dipanggil/diakses, maka fungsi inde() dieksekusi
 def score():
-    students = [
-        {"name": "Sandrine", "score": 100},
-        {"name": "Gergeley", "score": 87},
-        {"name": "Frieda", "score": 92},
-        {"name": "Fritz", "score": 40},
-        {"name": "Sirius", "score": 75},
-    ]
-    return render_template("index.html", students=students)
-    
+    #jika requst yang dilakukan oleh pungguna adalah post, maka eksekusi kode dalam if 
+    if request.method == "POST":
+        #access form data / membaca data pada yang diisikan pada form 
+        name = request.form.get("name")
+        score = request.form.get("score")
+        
+        # print(name)
+        # print(score)
+        #masukkan data ke database
+        db.execute("INSERT INTO score (name, score) VALUES(?, ?)", name, score)
+        # score_test = db.execute("select * from score")
+        # print(score_test)
+
+        #balik ke https://127.0.0.1:5000/
+        return redirect("/")
+        
+    # jika requestnya selain post, maka tampilkan data dari tabel birthdays  
+    else:
+        # ambil seluruh data dari tabel birthdays, simpan di variabel birthdays
+        score = db.execute("SELECT * FROM score")
+
+        # salin isi variabel birtdays ke birhdays, lalu kirim ke index.html
+        return render_template("index.html", students = score) 

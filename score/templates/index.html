@@ -5,16 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+<style>
+    table, th, td {
+  border:2px solid black;
+}
+</style>
 <body>
-    {% for x in students %}
-        <h1> Nama:{{x.name}}-Nilai:{{x.score}}</h1><br>
-        {% if x.score > 90 %}
-            -congratulations</p>
-        {% elif x.score >= 76 %}
-            -Very Good</p>
-        {% else %}
-            -Maaf anda belum lulus</p>
-        {% endif %}
-    {% endfor %}
+    <div class="container">
+        <div class="section">
+            <form action="/" method="POST">
+                <input name="name" placeholder="Name" type="text">
+                <input name="score" placeholder="score" type="number" min="0" max="100">
+                <input type="submit" value="Add score">
+            </form>
+        </div>
+    </div>
+
+    <div class="section">
+        <table style="width: 25%;">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>score</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for x in students %} 
+                <tr>
+                    <td>{{x.name}}</td>
+                    <td>{{x.score}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    
 </body>
 </html>
