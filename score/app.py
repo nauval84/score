@@ -51,3 +51,8 @@ def edit_data(id):
         edt_score = request.form.get("score")
         db.execute('UPDATE score set name = ?, score = ? where id = ?', edt_name, edt_score, id)
         return redirect("/") 
+
+@app.route("/delete/<id>", methods=["GET"])
+def delete(id):
+    db.execute("delete from score WHERE id = ?", id)
+    return redirect("/")

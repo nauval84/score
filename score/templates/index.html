@@ -39,6 +39,10 @@
                     <td>
                         <a href="/edit/{{x['id'] }}">Edit</a>
                     </td>
+                    <td>
+                        <a href="/delete/{{x['id'] }}"
+                        onclick="return confirm('apakah anda yakin ingin menghapus?');">Delete</a>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
