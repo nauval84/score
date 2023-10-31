@@ -3,10 +3,15 @@ import os #import os untuk mengakses sistem database
 from cs50 import SQL #import SQL untuk menggunakan bahasa SQL dalam phyton
 
 from flask import Flask, flash, jsonify, redirect, render_template, request, session #import tools untuk website
+from flask_session import Session
+from werkzeug.security import check_password_hash, generate_password_hash
+from werkzeug.utils import secure_filename
+
 
 app = Flask(__name__) #mengatur nama aplikasi
 
 db = SQL ("sqlite:///score.db")
+app.config.update(SECRET_KEY=os.urandom(24))
 
 
 
@@ -56,3 +61,35 @@ def edit_data(id):
 def delete(id):
     db.execute("delete from score WHERE id = ?", id)
     return redirect("/")
+
+
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    session.clear()
+    """register user"""
+    if request.method == "POST":
+        if not request.form.get("username"):
+            return "must provide username"
+        elif not request.form.get("password"):
+            return "must provide password"
+        
+        rows = db.execute("SELECT * FROM user WHERE username = ?", request.form.get("username"))
+        email = request.form.get("email")
+        username = request.form.get("username")
+        password = request.form.get("password")
+        konfirmasi = request.form.get("konfirmasi")
+        
+        hash = generate_password_hash(password)
+        if len(rows) == 1:
+            return "username already taken"
+        if password == konfirmasi:
+            db.execute("INSERT INTO user(username, password, email, konfirmasi) VALUES(?, ?, ?, ?)", username, hash, email, konfirmasi)
+            
+            registered_user = db.execute("SELECT * FROM user where username = ?", username)
+            session["user_id"] = registered_user[0]["id"]
+            flash('you were successfully registered')
+            return redirect("/")
+        else:
+            return "must provide matching password"
+    else:
+        return render_template("register.html")

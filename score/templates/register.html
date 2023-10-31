@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        fieldset {
+            text-align: center;
+            margin: 0 auto;
+            width: 0;
+            font-size: 30px;
+            border-radius: 5px;
+        }
+        h1{
+            text-align: center;
+        }
+        form {
+            text-align: center; /* Menengahkan konten dalam form */
+        }
+        input[type="text"] {
+            width: 300px;
+            padding: 10px; 
+            border: 1px solid #ccc; 
+            border-radius: 5px; 
+            font-size: 16px; 
+            color: #333; 
+        }
+        input[type="submit"] {
+            width: 320px;
+            padding: 10px; 
+            font-size: 16px; 
+            border-radius: 5px;
+            background-color: #1951de;
+            color: aliceblue;
+            cursor: pointer;
+        }
+        input[type="password"] {
+            width: 300px;
+            padding: 10px; 
+            border: 1px solid #ccc; 
+            border-radius: 5px; 
+            font-size: 16px; 
+            color: #333; 
+        }
+        input[type="email"] {
+            width: 300px;
+            padding: 10px; 
+            border: 1px solid #ccc; 
+            border-radius: 5px; 
+            font-size: 16px; 
+            color: #333; 
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Sign up now</h1>
+    <fieldset>
+        <form action="/register" method="POST">
+            <input type="text" id="username" name="username" placeholder="Masukkan Username">
+            <br><br>
+            <input type="email" id="email" name="email" placeholder="Masukkan Email" >
+            <br><br>
+            <input type="password" id="password" name="password" placeholder="Masukkan Password">
+            <br><br>
+            <input type="password" id="konfirmasi" name="konfirmasi" placeholder="Konfirmasi Password">
+            <br><br>
+            <input type="submit" value="Sign up">
+        </form>
+    </fieldset>
+</body>
+</html>
