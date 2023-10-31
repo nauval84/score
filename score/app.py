@@ -93,3 +93,27 @@ def register():
             return "must provide matching password"
     else:
         return render_template("register.html")
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    """log user in"""
+
+    session.clear()
+
+    if request.method == "POST":
+        if not request.form.get("username"):
+            return "must provide username"
+
+        elif not request.form.get("password"):
+            return "must provide password"
+
+        rows = db.execute("SELECT * FROM user WHERE username = ?", request.form.get("username"))
+
+        if len(rows) != 1 or not check_password_hash(rows[0]["password"], request.form.get("password")):
+            return "invalid username and/or password"
+
+        session["user_id"] = rows[0]["id"]
+        return redirect("/") 
+
+    else:
+        return render_template("login.html")
